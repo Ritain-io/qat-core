@@ -1,0 +1,4 @@
+name: app1
+connects_with:
+  name: app3.child.config.name
+  version: app3.child.config.version

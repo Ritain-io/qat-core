@@ -1,0 +1,5 @@
+version: '1.0'
+host: hosts.fe.host
+integrates_with:
+  name: app2.config.name
+  version: app2.config.version

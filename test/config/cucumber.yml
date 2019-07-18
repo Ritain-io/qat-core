@@ -1,0 +1,9 @@
+standard: &standard >
+  --format pretty
+  --format html --out public/index.html
+  --format junit --out public/
+  --strict
+  --tags ~@wip
+flat: &flat >
+  --format pretty
+default: *standard

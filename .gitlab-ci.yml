@@ -1,0 +1,11 @@
+stages:
+  - test
+
+test:
+  stage: test
+  script: echo "Hello World"
+  only:
+    - /^\d+.*/
+  tags:
+    - ruby
+    - cucumber

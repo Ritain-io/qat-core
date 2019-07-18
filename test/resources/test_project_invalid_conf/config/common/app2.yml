@@ -1,0 +1,5 @@
+details:
+  name: 'app2'
+  ip: app1.details.ip
+  tech: app1.details.tech
+  refs: app1.details.refs

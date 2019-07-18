@@ -1,0 +1,2 @@
+foo: bar
+loaded_from: env_variable

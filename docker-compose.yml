@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+
+  ssh:
+    image: maltyxx/sshd
+    volumes:
+      - /share:/home/user/share
+    ports:
+      - "2222:22"
+    command: user:password:1001:1001

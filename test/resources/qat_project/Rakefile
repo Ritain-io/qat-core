@@ -1,0 +1,22 @@
+#!/usr/bin/env rake
+#encoding: utf-8
+
+require 'cucumber'
+require 'cucumber/rake/task'
+require 'rake/testtask'
+
+
+['assertions', 'configuration'].each do |type|
+  task "#{type}_tests" do
+    Cucumber::Rake::Task.new "#{type}_tests" do |task|
+      task.libs << File.absolute_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..', 'lib'))
+      task.libs << File.absolute_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..', '..', 'logger', 'lib'))
+      ENV['CUCUMBER_OPTS']="#{ENV['CUCUMBER_OPTS']} --tags @#{type}"
+    end.runner.run
+  end
+end
+
+Cucumber::Rake::Task.new "default" do |task|
+  task.libs << File.absolute_path(File.join(File.dirname(__FILE__), '..', '..', '..', 'lib'))
+  task.libs << File.absolute_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..', 'logger', 'lib'))
+end

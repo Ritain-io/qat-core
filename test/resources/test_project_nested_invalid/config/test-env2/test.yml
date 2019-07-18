@@ -1,0 +1,4 @@
+foo: bar
+loaded_from: default_yaml
+from_nested_common: app1.config.name
+from_nested_env: app1.config.version

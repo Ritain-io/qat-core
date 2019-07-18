@@ -1,0 +1,11 @@
+smp: &smp
+  tnsnames: '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=172.16.0.1)(PORT=1521)))(CONNECT_DATA=(SID=sid_name)))'
+  username: ''
+  password: ''
+
+care: *smp
+
+sdp1:
+  database: '172.16.0.1:1521:example'
+  username: ''
+  password: ''
