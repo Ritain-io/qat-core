@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/readiness-it/qat-core.svg?branch=master)](https://travis-ci.org/readiness-it/qat-core)
+
 # QAT::Core
 
 - Welcome to the QAT Core gem!
