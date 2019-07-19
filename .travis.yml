@@ -26,6 +26,7 @@ jobs:
       if: tag IS blank
 
     - name: "unit tests"
+      env: TZ=Etc/UTC
       script:
         - docker-compose up -d
         - sleep 5
