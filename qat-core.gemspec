@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |gem|
   gem.name        = 'qat-core'
-  gem.version     = '6.0.0'
+  gem.version     = '6.0.1'
   gem.summary     = %q{QAT-Core is QAT's toolkit engine for automating tests.}
   gem.description = <<-DESC
   QAT-Core is QAT's engine, including a collection of modules for:
@@ -11,8 +11,11 @@ Gem::Specification.new do |gem|
   DESC
   gem.email    = 'qatoolkit@readinessit.com'
 
-  gem.homepage = 'https://github.com/readiness-it/qat-core'
+  gem.homepage = 'https://www.readinessit.com'
 
+  gem.metadata    = {
+      'source_code_uri'   => 'https://github.com/readiness-it/qat-core'
+  }
   gem.authors = ['QAT']
   gem.license = 'GPL-3.0'
 
