@@ -84,6 +84,10 @@ This gem also contains 3 very useful utilities:
  - IP Validator
   - Random integer generator
 
+# Documentation
+
+- [API documentation](https://readiness-it.github.io/qat-core/doc/index.html)
+
 
 ## Development
 
