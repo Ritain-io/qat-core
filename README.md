@@ -86,7 +86,7 @@ This gem also contains 3 very useful utilities:
 
 # Documentation
 
-- [API documentation](https://readiness-it.github.io/qat-core/doc/index.html)
+- [API documentation](https://readiness-it.github.io/qat-core/)
 
 
 ## Development
