@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |gem|
   gem.name        = 'qat-core'
-  gem.version     = '6.0.1'
+  gem.version     = '6.0.2'
   gem.summary     = %q{QAT-Core is QAT's toolkit engine for automating tests.}
   gem.description = <<-DESC
   QAT-Core is QAT's engine, including a collection of modules for:

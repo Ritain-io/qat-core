@@ -1,7 +1,7 @@
 ---
 language: ruby
 rvm:
-  - 2.5
+  - 2.6
 
 services:
   - docker
@@ -36,8 +36,6 @@ jobs:
 #      script:
 #        - docker-compose up -d
 #        - sleep 5
-#        - sudo rm /etc/localtime
-#        - sudo ln -sr /usr/share/zoneinfo/Europe/Lisbon /etc/localtime
 #        - bundle exec rake qat:devel:tests:run
 #      if: tag IS blank
 
