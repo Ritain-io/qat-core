@@ -94,7 +94,7 @@ module QAT
       #@see zone
       def zone=(zone)
         ::Time.zone = zone
-        #log.warn "System TZ not detected, using UTC" if self.zone=='UTC'
+        log.warn "System TZ not detected, using UTC" if self.zone=='UTC'
       end
 
       # Returns the current time in the current time zone
