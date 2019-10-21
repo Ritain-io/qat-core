@@ -10,7 +10,7 @@ When /^I synchronize the clock with host "([^"]*)"(?: using "([^"]*)")?$/ do |ho
     if host == 'test host'
       case type
       when 'SSH'
-        host = '172.18.0.2'
+        host = '0.0.0.0'
 
         opts = {
           user:     'user',
