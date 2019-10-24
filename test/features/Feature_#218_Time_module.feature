@@ -79,13 +79,13 @@ Feature: Feature #218: Time module
     When I set the current time zone to "nil"
     And I get the current time
     Then the result clock value is correct
-   # And the result time zone is the local zone
+    And the result time zone is the local zone
 
   Scenario Outline: Parsing of natural language time representation
     When I set the current time zone to "nil"
     When I parse the time string "<time>"
     Then the result clock is expected to <modification>
-    #And the result time zone is the local zone
+    And the result time zone is the local zone
     Examples:
       | time             | modification      |
       | in 24 hours      | advance 1 day     |
