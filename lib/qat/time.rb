@@ -85,6 +85,7 @@ module QAT
       def zone
         #self.zone = get_local_tz or 'UTC' unless ::Time.zone
         self.zone = 'UTC'
+        log.debug " TZZZZZZ #{get_local_tz}"
         ::Time.zone
       end
 
