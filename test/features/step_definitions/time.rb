@@ -60,10 +60,13 @@ end
 
 And /^I get the current time$/ do
   @time_result = QAT::Time.now
+  log.debug { "Current timezone is '#{@time_result}'" }
 end
 
 Then /^the result clock value is correct$/ do
   assert_equal @expected_time.to_i, @time_result.to_i
+  log.debug { "Current timezone is '#{@expected_time.to_i}'" }
+  log.debug { "Current timezone is '#{@time_result.to_i}'" }
 end
 
 And /^the result time zone is "([^"]*)"$/ do |zone|
@@ -82,6 +85,7 @@ And /^the result time zone is the local zone$/ do
                     TZInfo::TimezoneProxy.new iana_zone.to_s
                   end
   assert_equal expected_zone, @time_result.time_zone.tzinfo
+  log.debug { "Current timezone is '#{expected_zone}'" }
 end
 
 Given /^I create a dummy method for "([^"]*)" synchronization$/ do |meth|
