@@ -83,7 +83,7 @@ module QAT
       #
       #@return [ActiveSupport::TimeWithZone] Current time zone.
       def zone
-        self.zone = get_local_tz or ActiveSupport::TimeZone['Etc/UTC'] unless ::Time.zone
+        self.zone = get_local_tz or ActiveSupport::TimeZone['UTC'] unless ::Time.zone
         ::Time.zone
       end
 
