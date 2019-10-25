@@ -36,7 +36,7 @@ jobs:
       script:
         - docker-compose up -d
         - sleep 5
-        - sudo timedatectl set-timezone UTC
+        - sudo timedatectl set-timezone Etc-UTC
         - cat /etc/timezone
         - bundle exec rake qat:devel:tests:run
       if: tag IS blank
