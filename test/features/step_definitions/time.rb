@@ -60,6 +60,7 @@ end
 
 And /^I get the current time$/ do
   @time_result = QAT::Time.now
+  log.info @time_result
 end
 
 Then /^the result clock value is correct$/ do
