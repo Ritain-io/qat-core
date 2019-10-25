@@ -2,7 +2,6 @@ Given /^I freeze the clock(?: to "([^"]*)")?$/ do |time|
   Timecop.freeze time
   @initial_time  ||= ::Time.now
   @expected_time ||= @initial_time
-  log.info @expected_time
 end
 
 When /^I synchronize the clock with host "([^"]*)"(?: using "([^"]*)")?$/ do |host, type|
@@ -61,11 +60,12 @@ end
 
 And /^I get the current time$/ do
   @time_result = QAT::Time.now
-  log.info @time_result
 end
 
 Then /^the result clock value is correct$/ do
   assert_equal @expected_time.to_i, @time_result.to_i
+  log.info @expected_time
+  log.info @time_result
 end
 
 And /^the result time zone is "([^"]*)"$/ do |zone|
