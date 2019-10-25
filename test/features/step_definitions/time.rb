@@ -2,6 +2,7 @@ Given /^I freeze the clock(?: to "([^"]*)")?$/ do |time|
   Timecop.freeze time
   @initial_time  ||= ::Time.now
   @expected_time ||= @initial_time
+  log.info @expected_time
 end
 
 When /^I synchronize the clock with host "([^"]*)"(?: using "([^"]*)")?$/ do |host, type|
