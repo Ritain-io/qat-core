@@ -65,8 +65,6 @@ end
 
 Then /^the result clock value is correct$/ do
   assert_equal @expected_time.to_i, @time_result.to_i
-  log.info @expected_time
-  log.info @time_result
 end
 
 And /^the result time zone is "([^"]*)"$/ do |zone|
