@@ -60,6 +60,7 @@ end
 
 And /^I get the current time$/ do
   @time_result = QAT::Time.now
+  log.info { "TZ: '#{@time_result.time_zone.tzinfo}'" }
 end
 
 Then /^the result clock value is correct$/ do
