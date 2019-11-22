@@ -36,7 +36,6 @@ jobs:
       script:
         - docker-compose up -d
         - sleep 5
-        - cat /etc/timezone
         - bundle exec rake qat:devel:tests:run
       if: tag IS blank
 

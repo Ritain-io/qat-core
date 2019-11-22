@@ -82,11 +82,12 @@ And /^the result time zone is the local zone$/ do
                     log.debug {"Found translation to IANA timezone '#{iana_zone}'"}
                     TZInfo::TimezoneProxy.new iana_zone.to_s
                   end
-  log.info {"Test: '#{@time_result.time_zone.tzinfo}'"}
-  log.info {"Teste1: '#{expected_zone}'"}
-  expected_zone1 = 'Etc/UTC'if  expected_zone == 'UTC'
-  log.info {"Teste2: '#{expected_zone1}'"}
-  assert_equal expected_zone, @time_result.time_zone.tzinfo
+  local_expected_zone = if expected_zone == 'UTC'
+                          @time_result.time_zone.tzinfo
+                        else
+                          expected_zone
+                        end
+  assert_equal local_expected_zone, @time_result.time_zone.tzinfo
 end
 
 Given /^I create a dummy method for "([^"]*)" synchronization$/ do |meth|
