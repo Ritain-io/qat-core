@@ -51,7 +51,7 @@ module QAT
 
         host = nil if host.to_s.empty?
         local_ips = Socket.ip_address_list.map &:ip_address
-
+        local_ips << '::1' unless local_ips.include? '::1'
         dns_timeout = (opts and (opts[:dns_timeout] || opts[:timeout])) || 15
 
         Timeout.timeout dns_timeout do
@@ -84,10 +84,10 @@ module QAT
       #@return [ActiveSupport::TimeWithZone] Current time zone.
       def zone
         unless ::Time.zone
-          self.zone = get_local_tz
+          ::Time.zone = get_local_tz
           unless ::Time.zone
-            log.warn "System TZ not detected, using UTC"
-            self.zone = ActiveSupport::TimeZone['UTC']
+            #log.warn "System TZ not detected, using UTC"
+            ::Time.zone = ActiveSupport::TimeZone['UTC']
           end
         end
         ::Time.zone
@@ -97,9 +97,17 @@ module QAT
       #
       #@param zone [String] time zone to use
       #@return [ActiveSupport::TimeWithZone]
-      #@see zone
+      #@see zone#
       def zone=(zone)
+        if zone.nil?
+          zone = ActiveSupport::TimeZone['UTC']
+          log.warn "Zone was nil change to UTC"
+        end
         ::Time.zone = zone
+      rescue ArgumentError
+        log.warn "Zone was nil change to UTC"
+        ::Time.zone = ActiveSupport::TimeZone['UTC']
+        # log.warn "System TZ not detected, using UTC" if self.zone=='UTC'
       end
 
       # Returns the current time in the current time zone
