@@ -82,7 +82,7 @@ And /^the result time zone is the local zone$/ do
                     log.debug {"Found translation to IANA timezone '#{iana_zone}'"}
                     TZInfo::TimezoneProxy.new iana_zone.to_s
                   end
-  log.info {"TimeZone: '#{TimeZone}'"}
+  log.info {"TimeZone: '#{TimeZone::Local.get}'"}
   log.info {"Test: '#{@time_result.time_zone.tzinfo}'"}
   log.info {"Teste1: '#{expected_zone}'"}
   assert_equal expected_zone, @time_result.time_zone.tzinfo
