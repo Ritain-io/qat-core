@@ -82,7 +82,7 @@ And /^the result time zone is the local zone$/ do
                     log.debug {"Found translation to IANA timezone '#{iana_zone}'"}
                     TZInfo::TimezoneProxy.new iana_zone.to_s
                   end
-  local_expected_zone = if expected_zone == 'UTC'
+  local_expected_zone = if @time_result.time_zone.to_s.include?(expected_zone.to_s) # expected_zone == 'UTC'
                           @time_result.time_zone.tzinfo
                         else
                           expected_zone
