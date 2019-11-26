@@ -86,7 +86,6 @@ module QAT
         unless ::Time.zone
           ::Time.zone = get_local_tz
           unless ::Time.zone
-            #log.warn "System TZ not detected, using UTC"
             ::Time.zone = ActiveSupport::TimeZone['UTC']
           end
         end
@@ -97,7 +96,7 @@ module QAT
       #
       #@param zone [String] time zone to use
       #@return [ActiveSupport::TimeWithZone]
-      #@see zone#
+      #@see zone
       def zone=(zone)
         if zone.nil?
           zone = ActiveSupport::TimeZone['UTC']
@@ -107,7 +106,6 @@ module QAT
       rescue ArgumentError
         log.warn "Zone was nil change to UTC"
         ::Time.zone = ActiveSupport::TimeZone['UTC']
-        # log.warn "System TZ not detected, using UTC" if self.zone=='UTC'
       end
 
       # Returns the current time in the current time zone
