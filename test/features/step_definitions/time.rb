@@ -1,6 +1,6 @@
 Given /^I freeze the clock(?: to "([^"]*)")?$/ do |time|
   Timecop.freeze time
-  @initial_time  ||= ::Time.now
+  @initial_time ||= ::Time.now
   @expected_time ||= @initial_time
 end
 
@@ -13,8 +13,8 @@ When /^I synchronize the clock with host "([^"]*)"(?: using "([^"]*)")?$/ do |ho
         host = '127.0.0.1'
 
         opts = {
-          user:     'user',
-          password: 'password',
+            user: 'user',
+            password: 'password',
         }
       when 'NTP'
         host = 'pool.ntp.org'
@@ -43,10 +43,10 @@ And /^the synchronization result has initial time zone$/ do
                     @initial_time.zone
                   else
                     local_zone = `tzutil /g`
-                    log.debug { "Current Windows timezone is '#{local_zone}'" }
-                    tzdata    = File.open(File.join(File.dirname(__FILE__), '..', '..', '..', 'lib', 'qat', 'time', 'zone', 'windows', 'tz_data.xml')) { |f| Nokogiri::XML(f) }
+                    log.debug {"Current Windows timezone is '#{local_zone}'"}
+                    tzdata = File.open(File.join(File.dirname(__FILE__), '..', '..', '..', 'lib', 'qat', 'time', 'zone', 'windows', 'tz_data.xml')) {|f| Nokogiri::XML(f)}
                     iana_zone = tzdata.at_xpath("//mapZone[@other='#{local_zone}']")['type']
-                    log.debug { "Found translation to IANA timezone '#{iana_zone}'" }
+                    log.debug {"Found translation to IANA timezone '#{iana_zone}'"}
                     Time.use_zone iana_zone do
                       Time.zone.now.zone
                     end
@@ -60,6 +60,7 @@ end
 
 And /^I get the current time$/ do
   @time_result = QAT::Time.now
+  log.info {"TZ: '#{@time_result.time_zone.tzinfo}'"}
 end
 
 Then /^the result clock value is correct$/ do
@@ -72,16 +73,16 @@ end
 
 And /^the result time zone is the local zone$/ do
   expected_zone = if defined? TimeZone and defined? TimeZone::Local
-                    TimeZone::Local.get
+                    TimeZone::Local.get or ActiveSupport::TimeZone['UTC'].tzinfo
                   else
                     local_zone = `tzutil /g`
-                    log.debug { "Current Windows timezone is '#{local_zone}'" }
-                    tzdata    = File.open(File.join(File.dirname(__FILE__), '..', '..', '..', 'lib', 'qat', 'time', 'zone', 'windows', 'tz_data.xml')) { |f| Nokogiri::XML(f) }
+                    log.debug {"Current Windows timezone is '#{local_zone}'"}
+                    tzdata = File.open(File.join(File.dirname(__FILE__), '..', '..', '..', 'lib', 'qat', 'time', 'zone', 'windows', 'tz_data.xml')) {|f| Nokogiri::XML(f)}
                     iana_zone = tzdata.at_xpath("//mapZone[@other='#{local_zone}']")['type']
-                    log.debug { "Found translation to IANA timezone '#{iana_zone}'" }
+                    log.debug {"Found translation to IANA timezone '#{iana_zone}'"}
                     TZInfo::TimezoneProxy.new iana_zone.to_s
                   end
-  assert_equal expected_zone, @time_result.time_zone.tzinfo
+  assert @time_result.time_zone.tzinfo.to_s.include?(expected_zone.to_s), "Expected TZ with #{expected_zone.to_s} but got TZ with #{@time_result.time_zone.to_s}"
 end
 
 Given /^I create a dummy method for "([^"]*)" synchronization$/ do |meth|
@@ -97,23 +98,23 @@ end
 
 Given /^I create a synchronization method to (advance|go back) (\d+) (weeks?|days?|hours?|minutes?)$/ do |direction, quantity, units|
 
-  units          = units.pluralize
-  new_default    = [direction, quantity, units].join ' '
-  quantity       *= -1 if direction == 'go back'
+  units = units.pluralize
+  new_default = [direction, quantity, units].join ' '
+  quantity *= -1 if direction == 'go back'
   @expected_time = ::Time.zone.now.advance(units.to_sym => quantity)
 
   QAT::Time.sync_for_method new_default do |_, _, _|
     ::Time.zone.now.advance(units.to_sym => quantity)
   end
 
-  @previous_default             = QAT::Time.default_sync_method
+  @previous_default = QAT::Time.default_sync_method
   QAT::Time.default_sync_method = new_default
 
 end
 
 Then /the result clock is expected to (advance|go back) (\d+) (weeks?|days?|hours?|minutes?)/ do |direction, quantity, units|
 
-  units    = units.pluralize
+  units = units.pluralize
   quantity *= -1 if direction == 'go back'
 
   @expected_time = ::Time.zone.now.advance(units.to_sym => quantity)

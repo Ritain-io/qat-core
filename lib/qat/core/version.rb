@@ -6,6 +6,6 @@ module QAT
   # Namespace for QAT Core implementation
   class Core
     # Represents QAT's Core version
-    VERSION = '6.0.2'
+    VERSION = '6.0.3'
   end
 end

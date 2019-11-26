@@ -40,32 +40,32 @@ module QAT
       #@param method [String] method used for synchronization: +NTP+ or +SSH+.
       #@param opts [Hash] synchronization options
       #@return [ActiveSupport::TimeWithZone] Current time
-      def synchronize(host, method=default_sync_method, opts={})
+      def synchronize(host, method = default_sync_method, opts = {})
         opts ||= {} # opts can be a *nil* when it comes from qat/cucumber
-        log.info { "Synchronizing with host #{host} using #{method} method" }
+        log.info {"Synchronizing with host #{host} using #{method} method"}
         sync_meth = to_method_name method
         unless respond_to? sync_meth
-          log.error { "No synchronize method #{method} defined!" }
+          log.error {"No synchronize method #{method} defined!"}
           raise NotImplementedError.new "No implementation of syncronization using the '#{method}' method"
         end
 
-        host      = nil if host.to_s.empty?
+        host = nil if host.to_s.empty?
         local_ips = Socket.ip_address_list.map &:ip_address
-
+        local_ips << '::1' unless local_ips.include? '::1'
         dns_timeout = (opts and (opts[:dns_timeout] || opts[:timeout])) || 15
 
         Timeout.timeout dns_timeout do
           if local_ips.include? Resolv.getaddress(host)
-            log.info { 'Target host is localhost, returning' }
+            log.info {'Target host is localhost, returning'}
             return now
           end
         end
 
         time_point = self.method(sync_meth).call(log, host, opts)
         raise ArgumentError.new "Expected the result from #{sync_meth} to be a Time object" unless time_point.is_a? ::Time
-        log.info { "Synchronizing to #{time_point.strftime '%F %T,%L %z'}" }
+        log.info {"Synchronizing to #{time_point.strftime '%F %T,%L %z'}"}
         Timecop.travel time_point
-        log.info { "Done!" }
+        log.info {"Done!"}
         now
       end
 
@@ -83,7 +83,12 @@ module QAT
       #
       #@return [ActiveSupport::TimeWithZone] Current time zone.
       def zone
-        self.zone = get_local_tz or 'UTC' unless ::Time.zone
+        unless ::Time.zone
+          ::Time.zone = get_local_tz
+          unless ::Time.zone
+            ::Time.zone = ActiveSupport::TimeZone['UTC']
+          end
+        end
         ::Time.zone
       end
 
@@ -93,8 +98,14 @@ module QAT
       #@return [ActiveSupport::TimeWithZone]
       #@see zone
       def zone=(zone)
+        if zone.nil?
+          zone = ActiveSupport::TimeZone['UTC']
+          log.warn "Zone was nil change to UTC"
+        end
         ::Time.zone = zone
-        log.warn "System TZ not detected, using UTC" if self.zone=='UTC'
+      rescue ArgumentError
+        log.warn "Zone was nil change to UTC"
+        ::Time.zone = ActiveSupport::TimeZone['UTC']
       end
 
       # Returns the current time in the current time zone
@@ -119,6 +130,7 @@ module QAT
       end
 
       private
+
       # Converts a string to a valid method name
       #
       #@param meth [String] wannabe method string
@@ -134,7 +146,7 @@ end
 
 QAT::Time.sync_for_method 'NTP' do |_, host, opts|
   require 'net/ntp'
-  port    = opts[:port] || "ntp"
+  port = opts[:port] || "ntp"
   timeout = opts[:dns_timeout] || 3
   Net::NTP.get(host, port, timeout).time
 end
@@ -142,11 +154,11 @@ end
 QAT::Time.sync_for_method 'SSH' do |_, host, options|
   require 'net/ssh'
   ssh_opts = options.dup
-  user     = ssh_opts.delete :user
-  command  = ssh_opts.delete(:command) || 'date +%FT%T,%3N%z'
-  ssh_opts.select! { |opt| Net::SSH::VALID_OPTIONS.include? opt }
+  user = ssh_opts.delete :user
+  command = ssh_opts.delete(:command) || 'date +%FT%T,%3N%z'
+  ssh_opts.select! {|opt| Net::SSH::VALID_OPTIONS.include? opt}
   ssh_opts[:non_interactive] = true if ssh_opts[:non_interactive].nil?
-  result            = ''
+  result = ''
   Net::SSH.start(host, user, ssh_opts) do |ssh|
     result = ssh.exec! command
   end
