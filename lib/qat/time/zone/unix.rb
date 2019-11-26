@@ -4,7 +4,7 @@ module QAT
   class Time
     module Zone
       def get_local_tz
-        TimeZone::Local.get
+        TimeZone::Local.get or ActiveSupport::TimeZone['UTC']
       end
 
       extend self
