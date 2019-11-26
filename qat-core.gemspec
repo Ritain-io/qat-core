@@ -37,7 +37,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'timezone_local', '~> 0.1', '>= 0.1.5'
   gem.add_dependency 'little-plugger', '~> 1.1', '>= 1.1.4'
 
-  gem.add_development_dependency 'qat-devel', '~> 7.0.0'
+  gem.add_development_dependency 'qat-devel', '~> 7.0'
 
   gem.add_development_dependency 'minitest', '~> 5.7'
   gem.add_development_dependency 'aruba', '~> 0.9'
