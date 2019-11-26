@@ -3,12 +3,12 @@ When(/^I generate a random integer$/) do
   log.info "Generated integer '#{@integer}'!"
 end
 
-When(/^I generate a random integer with length (.*)$/) do |length|
+When(/^I generate a random integer with length (\d+)$/) do |length|
   @integer = Integer.random(length)
   log.info "Generated integer '#{@integer}'!"
 end
 
-Then(/^the generated integer has length (.*)$/) do |length|
+Then(/^the generated integer has length (\d+)$/) do |length|
   assert(@integer.is_a?(Integer))
   assert_equal(length.to_i, @integer.to_s.size)
 end

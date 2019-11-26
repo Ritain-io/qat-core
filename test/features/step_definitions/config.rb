@@ -54,6 +54,7 @@ Given /^I change the current directory to "([^"]*)"$/ do |dir|
 end
 
 When /^I change the (directory|environment) to "([^"]*)"$/ do |accessor, value|
+  value = nil if value == "nil"
   value    = dummy_project_path(value) if accessor == 'directory'
   accessor = :"#{accessor}="
   begin
