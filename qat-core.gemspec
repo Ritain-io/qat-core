@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |gem|
   gem.name        = 'qat-core'
-  gem.version     = '7.0.0'
+  gem.version     = '7.0.1'
   gem.summary     = %q{QAT-Core is QAT's toolkit engine for automating tests.}
   gem.description = <<-DESC
   QAT-Core is QAT's engine, including a collection of modules for:
@@ -24,7 +24,7 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '~> 2.3'
 
-  gem.add_dependency 'qat-logger', '~> 6.0'
+  gem.add_dependency 'qat-logger', '~> 7.0'
 
   gem.add_dependency 'activesupport'
   gem.add_dependency 'nokogiri'
