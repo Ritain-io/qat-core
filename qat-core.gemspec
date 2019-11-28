@@ -24,7 +24,7 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '~> 2.3'
 
-  gem.add_dependency 'qat-logger', '~> 6.0'
+  gem.add_dependency 'qat-logger', '~> 7.0'
 
   gem.add_dependency 'activesupport'
   gem.add_dependency 'nokogiri'
