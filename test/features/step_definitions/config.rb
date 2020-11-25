@@ -103,7 +103,7 @@ end
 When(/^I try to edit the value at "([^"]*)" to "([^"]*)"$/) do |path, new_value|
   breadcrumbs = path.split('.').map { |breadcrumb| "['#{breadcrumb}']" }.join
   statement   = "configuration#{breadcrumbs} = '#{new_value}'"
-  puts "Evaluating: #{statement}"
+  log.info "Evaluating: #{statement}"
   begin
     eval(statement)
   rescue => @error
