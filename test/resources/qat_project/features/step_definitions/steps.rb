@@ -1,15 +1,15 @@
 Given /^true$/ do
-  puts "true"
+  log "true"
   assert true
 end
 
 Given /^false$/ do
-  puts "false"
+  log "false"
   assert false
 end
 
 Given /^pending$/ do
-  puts "pending"
+  log "pending"
   pending
 end
 

@@ -15,7 +15,7 @@ After '@core' do
   end
 end
 
-After '~@stdout_redirect' do |scenario|
+After 'not @stdout_redirect' do |scenario|
   if scenario.status == :passed
     log.info { "Scenario #{scenario.name} #{scenario.status}!\n\n" }
   else

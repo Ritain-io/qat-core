@@ -1,12 +1,12 @@
 Before do
-  puts 'before'
+  log 'before'
 end
 
 AfterStep do
-  puts 'after step'
+  log 'after step'
 end
 
 After do
-  puts 'after'
+  log 'after'
 end
 
