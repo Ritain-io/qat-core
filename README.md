@@ -23,6 +23,7 @@ And then execute:
 
     $ bundle install
 
+
 Or install it manually:
 
     $ gem install qat-core
