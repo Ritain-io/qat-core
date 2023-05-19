@@ -27,6 +27,8 @@ Or install it manually:
 
     $ gem install qat-core
     
+
+
 # Usage
 ## Shared memory for objects:
 
