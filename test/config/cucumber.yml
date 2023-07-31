@@ -1,9 +1,9 @@
-standard: &standard >
+default: --profile standard
+standard:
   --format pretty
   --format html --out public/index.html
   --format junit --out public/
   --strict
   --tags "not @wip"
-flat: &flat >
+flat:
   --format pretty
-default: *standard

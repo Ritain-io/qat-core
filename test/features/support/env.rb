@@ -1,4 +1,13 @@
 # -*- encoding : utf-8 -*-
+require 'qat/core'
+require 'qat/configuration'
+require 'qat/time'
+require 'qat/core_ext/integer'
+require 'qat/core_ext/object/deep_compact'
+require 'qat/utils/hash'
+require_relative '../../lib/core_helper'
+require_relative '../../lib/configuration_helper'
+
 require 'minitest'
 require 'active_support/core_ext/date_time/calculations'
 require 'active_support/core_ext/time/calculations'
@@ -19,14 +28,7 @@ end
 
 ENV['JENKINS_URL'] = nil
 
-require 'qat/core'
-require 'qat/configuration'
-require 'qat/time'
-require 'qat/core_ext/integer'
-require 'qat/core_ext/object/deep_compact'
-require 'qat/utils/hash'
-require_relative '../../lib/core_helper'
-require_relative '../../lib/configuration_helper'
+
 
 module Test
   include QAT::Logger

@@ -63,7 +63,11 @@ module QAT
     def [](key)
       @cache[key].deep_dup
     end
-
+    
+    def directory
+      super
+    end
+    
     private
     # Resolves references between configuration files.
     def resolve_references!

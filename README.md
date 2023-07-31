@@ -6,6 +6,7 @@
 
 ## Table of contents 
 - This gem is a set of the following capabilities: 
+  - **Changes from previous version;**
   - **Shared memory for objects;**
   - **Environments configuration manager;**
   - **Time modification and enhancement;**
@@ -30,6 +31,35 @@ Or install it manually:
     
 
 
+# Major changes from previous version
+## Configuration of cucumber.yml
+**Previously:**
+```yaml
+standard: &standard >
+  --format pretty
+  --format html --out public/index.html
+  --format junit --out public/
+  --strict
+  --tags "not @wip"
+flat: &flat >
+  --format pretty
+default: *standard
+```
+
+**Now:**
+```yaml
+default: --profile standard
+standard:
+  --format pretty
+  --format html --out public/index.html
+  --format junit --out public/
+  --strict
+  --tags "not @wip"
+flat:
+  --format pretty
+```
+
+Note that the way default is set is different and now it is possible to assigne multiple profiles to cucumber configuration. 
 # Usage
 ## Shared memory for objects:
 

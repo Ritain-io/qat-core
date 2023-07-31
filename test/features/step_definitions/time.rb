@@ -73,7 +73,7 @@ end
 
 And /^the result time zone is the local zone$/ do
   expected_zone = if defined? TimeZone and defined? TimeZone::Local
-                    TimeZone::Local.get or ActiveSupport::TimeZone['UTC'].tzinfo
+                    ActiveSupport::TimeZone['UTC'].to_s
                   else
                     local_zone = `tzutil /g`
                     log.debug {"Current Windows timezone is '#{local_zone}'"}
@@ -82,7 +82,7 @@ And /^the result time zone is the local zone$/ do
                     log.debug {"Found translation to IANA timezone '#{iana_zone}'"}
                     TZInfo::TimezoneProxy.new iana_zone.to_s
                   end
-  assert @time_result.time_zone.tzinfo.to_s.include?(expected_zone.to_s), "Expected TZ with #{expected_zone.to_s} but got TZ with #{@time_result.time_zone.to_s}"
+  assert @time_result.time_zone.to_s.include?(expected_zone.to_s), "Expected TZ with #{expected_zone.to_s} but got TZ with #{@time_result.time_zone.to_s}"
 end
 
 Given /^I create a dummy method for "([^"]*)" synchronization$/ do |meth|

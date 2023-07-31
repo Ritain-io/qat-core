@@ -6,7 +6,8 @@ When(/^I load the(?: "([^"]*)" environment from the)? "([^"]*)" folder$/) do |en
                            QAT::Configuration.new directory, environment
                          else
                            QAT::Configuration.new directory
-                         end
+												 end
+		
   rescue => @error
   end
 end
@@ -18,7 +19,7 @@ end
 Then /^the loaded (directory|environment) is "([^"]*)"$/ do |accessor, value|
   value = dummy_project_path(value) if accessor == 'directory'
 
-  assert_equal value, configuration.method(accessor).call
+  assert_equal value, self.configuration.method(accessor).call
 end
 
 And /^I have the values in the "([^"]*)" configuration cache$/ do |cache, table|
